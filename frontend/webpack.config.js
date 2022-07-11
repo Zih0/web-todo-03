@@ -21,7 +21,18 @@ export default {
       },
       {
         test: /\.s[ac]ss$/i,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        exclude: [/node_modules/],
+        use: [
+          'sass-to-string',
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                outputStyle: 'compressed',
+              },
+            },
+          },
+        ],
       },
       {
         test: /\.(jpg|jpeg|gif|png|svg|ico)?$/i,
