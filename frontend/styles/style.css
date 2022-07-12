@@ -1,9 +1,4 @@
-.main__container {
-  display: flex;
-
-  gap: 48px;
-}
-:root {
+:host {
   --white: #ffffff;
   --purple-100: #bdb0ff;
   --purple-200: #7b61ff;

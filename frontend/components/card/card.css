@@ -4,8 +4,8 @@
   width: 308px;
   min-height: 128px;
 
-  background: #ffffff;
-  border: 1px solid #e9ebee;
+  background: var(--white);
+  border: 1px solid var(--grey-200);
   border-radius: 6px;
 }
 
@@ -20,7 +20,7 @@
   font-size: 20px;
   line-height: 24px;
 
-  color: #191f28;
+  color: var(--balck);
 }
 
 .card__desc {
@@ -38,7 +38,7 @@
   font-size: 16px;
   line-height: 19px;
 
-  color: #646f7c;
+  color: var(--grey-500);
 }
 
 .card__tag {
@@ -50,8 +50,7 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  /* identical to box height */
 
-  background-color: #7b61ff;
-  color: #ffffff;
+  background-color: var(--purple-200);
+  color: var(--white);
 }

@@ -20,19 +20,9 @@ export default {
         },
       },
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.css$/i,
         exclude: [/node_modules/],
-        use: [
-          'sass-to-string',
-          {
-            loader: 'sass-loader',
-            options: {
-              sassOptions: {
-                outputStyle: 'compressed',
-              },
-            },
-          },
-        ],
+        use: ['to-string-loader', 'css-loader'],
       },
       {
         test: /\.(jpg|jpeg|gif|png|svg|ico)?$/i,

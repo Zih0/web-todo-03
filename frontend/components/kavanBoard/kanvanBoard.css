@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: 28px;
 
-  background: #f7f8f9;
+  background: var(--grey-100);
   border-radius: 12px;
 }
 
@@ -31,7 +31,7 @@
 
 .kanvan__title {
   text-transform: uppercase;
-  color: #010101;
+  color: var(--black);
 }
 
 .kanvan__count {
@@ -40,7 +40,7 @@
   height: 26px;
   text-align: center;
 
-  color: #929292;
+  color: var(--grey-400);
 }
 
 .kanvan__card__list {
