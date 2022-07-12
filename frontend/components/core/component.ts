@@ -12,13 +12,13 @@ class Component extends HTMLElement {
     return;
   }
 
-  setTemplate(): void {
-    return;
+  setTemplate(): string {
+    return '';
   }
 
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
-    this.setTemplate();
+    this.template.innerHTML = this.setTemplate();
     this.setStyle();
 
     this.shadowRoot?.append(this.styles, this.template.content.cloneNode(true));

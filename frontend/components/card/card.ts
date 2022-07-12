@@ -12,7 +12,7 @@ class Card extends Component {
   }
 
   setTemplate() {
-    this.template.innerHTML = `<div class="card">
+    return `<div class="card">
     <div class="card__header">
       <p class="card__title">GitHub 공부하기</p>
       <img src=${IconClose} alt="삭제" />

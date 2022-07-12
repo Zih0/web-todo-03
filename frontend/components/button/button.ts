@@ -24,7 +24,7 @@ class CustomButton extends Component {
     const type = this.getType();
     const text = this.getText();
 
-    this.template.innerHTML = `
+    return `
       <button class="custom-button ${type}">${text}</button>
     `;
   }
