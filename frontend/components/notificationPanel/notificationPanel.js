@@ -10,15 +10,15 @@ class NotificationPanel extends Component {
     this.styles.textContent = NotificationPanelStyle;
   }
   setTemplate() {
-    return `<div class ='panel-wrapper'> 
+    return `<div class='panel-wrapper'> 
                 <div class='panel'>
-                     <div class = 'top-content'>
+                     <div class='top-content'>
                         <p>알림</p>
-                        <div class ='close-button'>
+                        <div class='close-button'>
                         <img src=${IconClose} alt='닫기'/>
                     </div>
                     </div>
-                    <div class = 'main-content'>
+                    <div class='main-content'>
                   
                 </div>
                 </div>
