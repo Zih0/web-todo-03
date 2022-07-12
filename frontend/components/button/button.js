@@ -25,7 +25,7 @@ class CustomButton extends Component {
     const text = this.getText();
 
     return `
-      <button class="custom-button ${type}">${text}</button>
+      <button class="custom-button ${type ?? 'normal'}">${text}</button>
     `;
   }
 }
