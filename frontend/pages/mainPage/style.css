@@ -3,6 +3,9 @@
 
 .main__container {
   display: flex;
-
+  flex-direction: column;
+}
+.kanvan__container {
+  display: flex;
   gap: 48px;
 }
