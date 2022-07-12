@@ -13,6 +13,6 @@ const handleListening = () => {
 
 app.get('/', (req, res) => res.sendFile(`${process.cwd()}/dist/index.html`));
 
-app.use('/todo', todoRouter);
+app.use('/todos', todoRouter);
 
 app.listen(PORT, handleListening);
