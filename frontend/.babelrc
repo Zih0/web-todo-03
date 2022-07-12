@@ -6,9 +6,8 @@
         "targets": "> 1%, not dead",
         "useBuiltIns": "usage",
         "corejs": "3.6.5"
-      },
-      "@babel/preset-typescript"
+      }
     ]
   ],
-  "plugins": ["@babel/plugin-transform-typescript", "@babel/plugin-proposal-object-rest-spread"]
+  "plugins": ["@babel/plugin-proposal-object-rest-spread"]
 }

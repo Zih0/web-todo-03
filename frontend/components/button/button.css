@@ -1,0 +1,30 @@
+.custom-button {
+  width: 134px;
+  height: 40px;
+  border-radius: 6px;
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+}
+.custom-button.primary {
+  background-color: var(--purple-200);
+}
+
+.custom-button.primary:hover {
+  background-color: var(--purple-300);
+}
+
+.custom-button.primary:active {
+  background-color: var(--purple-100);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.custom-button.normal {
+  background-color: var(--grey-200);
+  color: var(--grey-400);
+}
+
+.custom-button.normal:active {
+  background-color: var(--grey-400);
+  color: var(--white);
+}

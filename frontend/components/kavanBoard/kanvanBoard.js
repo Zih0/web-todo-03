@@ -1,5 +1,5 @@
-import kanvanBoardStyle from './kanvanBoard.scss';
-import Component from '../core/component';
+import kanvanBoardStyle from './kanvanBoard.css';
+import Component from '../core/component.js';
 import IconClose from '../../assets/icons/close.svg';
 import IconPlus from '../../assets/icons/plus.svg';
 

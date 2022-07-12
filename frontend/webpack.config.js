@@ -4,7 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 const __dirname = path.resolve();
 
 export default {
-  entry: './frontend/app.ts',
+  entry: './frontend/app.js',
   mode: 'development',
   output: {
     filename: 'main.js',
@@ -13,26 +13,16 @@ export default {
   module: {
     rules: [
       {
-        test: /\.(js|ts)$/,
-        exclude: /(node_modules|bower_components)/,
+        test: /\.js$/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
         },
       },
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.css$/i,
         exclude: [/node_modules/],
-        use: [
-          'sass-to-string',
-          {
-            loader: 'sass-loader',
-            options: {
-              sassOptions: {
-                outputStyle: 'compressed',
-              },
-            },
-          },
-        ],
+        use: ['to-string-loader', 'css-loader'],
       },
       {
         test: /\.(jpg|jpeg|gif|png|svg|ico)?$/i,
@@ -48,9 +38,9 @@ export default {
       },
     ],
   },
-  // .js , .ts 확장자없이 import 가능
+  // .js 확장자없이 import 가능
   resolve: {
-    extensions: ['.js', '.ts'],
+    extensions: ['.js'],
   },
   devtool: 'inline-source-map',
   devServer: {

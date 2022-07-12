@@ -1,0 +1,7 @@
+@import '../../styles/style.css';
+
+.main__container {
+  display: flex;
+
+  gap: 48px;
+}

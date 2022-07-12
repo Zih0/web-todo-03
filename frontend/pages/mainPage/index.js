@@ -1,8 +1,13 @@
-import Component from '../../components/core/component';
+import Component from '../../components/core/component.js';
+import pageStyle from './style.css';
 
 export default class MainPage extends Component {
   constructor() {
     super();
+  }
+
+  setStyle() {
+    this.styles.textContent = pageStyle;
   }
 
   setTemplate() {
