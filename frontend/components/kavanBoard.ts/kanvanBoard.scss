@@ -1,0 +1,50 @@
+.kanvan {
+  width: fit-content;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  background: #f7f8f9;
+  border-radius: 12px;
+}
+
+.kanvan__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+}
+
+.kanvan__header__left {
+  display: flex;
+  gap: 2px;
+}
+
+.kanvan__header__right {
+  display: flex;
+  gap: 2px;
+}
+
+.kanvan__title {
+  text-transform: uppercase;
+  color: #010101;
+}
+
+.kanvan__count {
+  margin-left: 2px;
+  width: 26px;
+  height: 26px;
+  text-align: center;
+
+  color: #929292;
+}
+
+.kanvan__card__list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

@@ -55,6 +55,7 @@ export default {
   devtool: 'inline-source-map',
   devServer: {
     port: 9000,
+    hot: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
