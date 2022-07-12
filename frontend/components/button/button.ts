@@ -1,25 +1,32 @@
-import styles from './button.scss';
+import Component from '../core/component';
+import buttonStyle from './button.scss';
 
-class CustomButton extends HTMLElement {
+class CustomButton extends Component {
   constructor() {
     super();
+  }
 
-    this.attachShadow({ mode: 'open' });
-    const button = document.createElement('button');
-    button.setAttribute('class', 'custom-button');
-    const style = document.createElement('style');
-    style.textContent = styles;
-    const type = this.getAttribute('type');
+  setStyle() {
+    this.styles.textContent = buttonStyle;
+  }
+
+  getText() {
     const text = this.getAttribute('text');
-    button.innerText = text ?? '';
+    return text ?? '';
+  }
 
-    if (type === 'primary') {
-      button.classList.add('primary');
-    } else if (type === 'normal') {
-      button.classList.add('normal');
-    }
+  getType() {
+    const type = this.getAttribute('type');
+    return type;
+  }
 
-    this.shadowRoot?.append(style, button);
+  setTemplate() {
+    const type = this.getType();
+    const text = this.getText();
+
+    this.template.innerHTML = `
+      <button class="custom-button ${type}">${text}</button>
+    `;
   }
 }
 export default CustomButton;
