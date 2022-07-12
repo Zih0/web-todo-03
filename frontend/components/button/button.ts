@@ -1,4 +1,4 @@
-import styles from './button.styles.scss';
+import styles from './button.scss';
 
 class CustomButton extends HTMLElement {
   constructor() {
