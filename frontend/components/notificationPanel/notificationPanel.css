@@ -1,0 +1,47 @@
+.panel-wrapper {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.panel-wrapper .panel {
+  position: absolute;
+  width: 450px;
+  height: 100%;
+  right: 0;
+  top: 0;
+  background-color: var(--white);
+  padding: 30px 74px 0 46px;
+  box-sizing: border-box;
+}
+.top-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.top-content p {
+  font-size: 32px;
+  font-weight: 700;
+}
+.top-content .close-button {
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--grey-100);
+  cursor: pointer;
+}
+.top-content .close-button:hover {
+  background-color: var(--grey-200);
+}
+.top-content .close-button img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
