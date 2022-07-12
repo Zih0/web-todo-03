@@ -1,5 +1,5 @@
-import Component from '../core/component';
-import buttonStyle from './button.scss';
+import Component from '../core/component.js';
+import buttonStyle from './button.css';
 
 class CustomButton extends Component {
   constructor() {

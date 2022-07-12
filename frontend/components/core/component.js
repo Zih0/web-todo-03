@@ -1,6 +1,6 @@
 class Component extends HTMLElement {
-  template: HTMLTemplateElement;
-  styles: HTMLStyleElement;
+  template;
+  styles;
   constructor() {
     super();
 
@@ -8,11 +8,11 @@ class Component extends HTMLElement {
     this.styles = document.createElement('style');
   }
 
-  setStyle(): void {
+  setStyle() {
     return;
   }
 
-  setTemplate(): string {
+  setTemplate() {
     return '';
   }
 

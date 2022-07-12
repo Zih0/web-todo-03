@@ -1,5 +1,5 @@
-import Component from '../core/component';
-import cardStyle from './card.scss';
+import Component from '../core/component.js';
+import cardStyle from './card.css';
 import IconClose from '../../assets/icons/close.svg';
 
 class Card extends Component {
