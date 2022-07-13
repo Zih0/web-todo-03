@@ -1,6 +1,7 @@
 import './dotenv.js';
 import express from 'express';
 import todoRouter from './api/todo/TodoRoute.js';
+import { notificationRouter } from './api/notification/NotificationRoute.js';
 
 const app = express();
 app.use(express.json());
@@ -14,5 +15,6 @@ const handleListening = () => {
 app.get('/', (req, res) => res.sendFile(`${process.cwd()}/dist/index.html`));
 
 app.use('/todos', todoRouter);
+app.use('/notifications', notificationRouter);
 
 app.listen(PORT, handleListening);
