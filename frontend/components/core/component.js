@@ -17,7 +17,7 @@ class Component extends HTMLElement {
     this.render();
     this.setStyle();
     this.shadowRoot?.append(this.styles, this.template.content.cloneNode(true));
-    this.addEvent();
+    this.setEvent();
   }
 
   /*
@@ -32,8 +32,19 @@ class Component extends HTMLElement {
     return '';
   }
 
-  addEvent() {
-    return;
+  /*
+   * 컴포넌트 이벤트를 넣어줍니다.
+   */
+  setEvent() {}
+
+  addEvent(event, selector, callback) {
+    const children = [...this.shadowRoot.querySelectorAll(selector)];
+
+    children.forEach((element) => {
+      element.addEventListener(event, (e) => {
+        callback(e);
+      });
+    });
   }
 
   render() {
