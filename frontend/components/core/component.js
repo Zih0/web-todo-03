@@ -60,6 +60,8 @@ class Component extends HTMLElement {
   /*
    * 구독한 attribute가 변경되었을 때, Callback 처리
    */
-  attributeChangedCallback(name, oldValue, newValue) {}
+  attributeChangedCallback(name, oldValue, newValue) {
+    this.reRender();
+  }
 }
 export default Component;
