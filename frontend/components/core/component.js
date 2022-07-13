@@ -15,6 +15,8 @@ class Component extends HTMLElement {
 
   init() {
     this.render();
+    this.setStyle();
+    this.shadowRoot?.append(this.styles, this.template.content.cloneNode(true));
     this.addEvent();
   }
 
@@ -38,15 +40,13 @@ class Component extends HTMLElement {
     this.template.innerHTML = this.setTemplate();
   }
 
-  connectedCallback() {
-    this.setStyle();
-    this.shadowRoot?.append(this.styles, this.template.content.cloneNode(true));
-
-    this.setEvent();
-  }
+  /*
+   * componentDidMount
+   */
+  connectedCallback() {}
 
   /*
-   * DOM Unmount
+   * componentWillUnmount
    */
   disconnectedCallback() {}
 
