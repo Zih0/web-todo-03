@@ -7,13 +7,16 @@ export default class MainPage extends Component {
   }
 
   setTemplate() {
+    const todoTitle = 'Woowa! Todo🚀';
+    const projectTitle = 'Todo Project!';
+    const projectDesc = '신지호, 김경민이 함께하는 todo project 입니다. with vanilla JS, nodeJS, web component API ...';
     return `
         <div class="main__container">
-          <todo-header text="Woowa! Todo"></todo-header>
+          <todo-header text=${todoTitle}></todo-header>
           <div class="contents__container">
             <div class="project-header">
-              <h1>Todo Project!</h1>
-              <p>신지호, 김경민이 함께하는 todo project 입니다. with vanilla JS, nodeJS, web component API ...</p>
+              <h1>${projectTitle}</h1>
+              <p>${projectDesc}</p>
             </div>
             <div class="kanvan__container">
               <todo-kanvan id="main__kanvan__todo"></todo-kanvan>
