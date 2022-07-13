@@ -8,9 +8,25 @@ class Notification extends Component {
   setStyle() {
     this.styles.textContent = NotificationStyle;
   }
+  setEmogi(action) {
+    switch (action) {
+      case 'create':
+        return '🥳';
+        break;
+      case 'update':
+        return '🛠';
+        break;
+      case 'delete':
+        return '👻';
+        break;
+      case 'move':
+        return '🚀';
+        break;
+    }
+  }
 
   setTemplate() {
-    const emogi = '🚀';
+    const emogi = this.setEmogi('create');
     const author = '경민';
     const notification = '해야할 일에 컴포넌트 리팩터링을 등록하였습니다.';
     const time = '1분';
