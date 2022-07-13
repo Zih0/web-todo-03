@@ -32,8 +32,19 @@ class Component extends HTMLElement {
     return '';
   }
 
-  addEvent() {
-    return;
+  /*
+   * 컴포넌트 이벤트를 넣어줍니다.
+   */
+  setEvent() {}
+
+  addEvent(event, selector, cb) {
+    const children = [...this.shadowRoot.querySelectorAll(selector)];
+
+    children.forEach((element) => {
+      element.addEventListener(event, (e) => {
+        cb(e);
+      });
+    });
   }
 
   render() {
