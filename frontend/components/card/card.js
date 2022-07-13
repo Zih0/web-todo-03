@@ -15,7 +15,6 @@ class Card extends Component {
     this.cardType = CARD_TYPE.NORMAL;
 
     this.reRender();
-    this.setEvent();
   }
 
   setStyle() {
@@ -82,7 +81,7 @@ class Card extends Component {
   }
 
   setEvent() {
-    this.addEvent('dblclick', '.card', this.handleDlbClickCard.bind(this));
+    this.addEvent('dblclick', '.card', this.handleDoubleClickCard.bind(this));
     this.addEvent('click', '.card__close-btn', this.handleClickCloseButton.bind(this));
     this.addEvent('click', '#card__cancel-btn', this.handleClickCancelButton.bind(this));
     this.addEvent('click', '#card__submit-btn', this.handleClickSubmitButton.bind(this));
