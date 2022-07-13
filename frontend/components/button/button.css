@@ -6,17 +6,23 @@
   border: none;
   cursor: pointer;
 }
+
 .custom-button.primary {
   background-color: var(--purple-200);
 }
 
-.custom-button.primary:hover {
+.custom-button.primary:not(.disabled):hover {
   background-color: var(--purple-300);
 }
 
-.custom-button.primary:active {
+.custom-button.primary:active,
+.custom-button.disabled {
   background-color: var(--purple-100);
   color: rgba(255, 255, 255, 0.4);
+}
+
+.custom-button.disabled {
+  cursor: default;
 }
 
 .custom-button.normal {
