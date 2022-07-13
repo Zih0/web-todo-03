@@ -37,12 +37,12 @@ class Component extends HTMLElement {
    */
   setEvent() {}
 
-  addEvent(event, selector, cb) {
+  addEvent(event, selector, callback) {
     const children = [...this.shadowRoot.querySelectorAll(selector)];
 
     children.forEach((element) => {
       element.addEventListener(event, (e) => {
-        cb(e);
+        callback(e);
       });
     });
   }
