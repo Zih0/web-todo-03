@@ -14,7 +14,7 @@ class Card extends Component {
     this.cardType = CARD_TYPE.NORMAL;
 
     this.reRender();
-    this.addEvent();
+    this.setEvent();
   }
 
   setStyle() {
@@ -30,9 +30,6 @@ class Card extends Component {
   }
 
   handleDlbClickCard(e) {
-    e.stopPropagation();
-    e.preventDefault();
-
     if (this.cardType === CARD_TYPE.MODIFY) return;
 
     this.toggleCardType();
@@ -41,6 +38,12 @@ class Card extends Component {
 
   handleClickCloseButton(e) {
     e.stopPropagation();
+
+    const alertModalComponent = document.querySelector('#main__page').shadowRoot.querySelector('#alert__modal');
+    alertModalComponent.setAttribute('card-id', this.getAttribute('card-id'));
+    const alertModal = alertModalComponent.shadowRoot.querySelector('.modal');
+
+    alertModal.classList.add('open');
   }
 
   handleClickCancelButton(e) {
@@ -103,7 +106,8 @@ class Card extends Component {
         </button>
       </div>
       <p class="card__desc">${this.getAttribute('description')}</p>
-    </div>`;
+    </div>
+    `;
   }
 
   getModifyCardTemplate() {
