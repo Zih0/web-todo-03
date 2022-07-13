@@ -9,8 +9,6 @@ class Component extends HTMLElement {
 
     this.attachShadow({ mode: 'open' });
     this.init();
-
-    this.reRender = this.render.bind(this);
   }
 
   init() {
@@ -49,6 +47,15 @@ class Component extends HTMLElement {
 
   render() {
     this.template.innerHTML = this.setTemplate();
+  }
+
+  reRender() {
+    this.render();
+
+    this.shadowRoot.innerHTML = '';
+    this.shadowRoot.append(this.styles, this.template.content.cloneNode(true));
+
+    this.setEvent();
   }
 
   /*

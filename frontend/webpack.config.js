@@ -7,8 +7,9 @@ export default {
   entry: './frontend/app.js',
   mode: 'development',
   output: {
-    filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js',
+    publicPath: '/',
   },
   module: {
     rules: [

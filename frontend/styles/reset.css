@@ -127,9 +127,9 @@ a {
   text-decoration: none;
 }
 
+textarea,
 input {
   border: none;
-  padding: 10px 0;
 }
 
 input:focus {

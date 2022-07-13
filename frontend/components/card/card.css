@@ -1,3 +1,5 @@
+@import '../../styles/reset.css';
+
 .card {
   padding: 16px;
 
@@ -7,6 +9,11 @@
   background: var(--white);
   border: 1px solid var(--grey-200);
   border-radius: 6px;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .card__header {
@@ -20,25 +27,38 @@
   font-size: 20px;
   line-height: 24px;
 
-  color: var(--balck);
+  color: var(--black);
+}
+
+input.card__title::placeholder {
+  color: var(--grey-400);
 }
 
 .card__desc {
   margin-top: 8px;
-  width: 252px;
+  width: 100%;
   height: 40px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  word-wrap: break-word;
 
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
 
   color: var(--grey-500);
+}
+
+p.card__desc {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+}
+
+textarea.card__desc {
+  resize: none;
+  overflow-y: hidden; /* prevents scroll bar flash */
+  text-overflow: inherit;
 }
 
 .card__tag {
@@ -53,4 +73,19 @@
 
   background-color: var(--purple-200);
   color: var(--white);
+}
+
+.card__close-btn {
+  border: none;
+  background-color: transparent;
+
+  cursor: pointer;
+}
+
+.card__button__wrapper {
+  margin-top: 16px;
+
+  display: flex;
+  justify-content: center;
+  gap: 8px;
 }

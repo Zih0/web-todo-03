@@ -1,7 +1,7 @@
 @import '../../styles/reset.css';
 @import '../../styles/style.css';
 
-.modal {
+.modal.open {
   z-index: 1000;
   position: fixed;
   top: 0;
@@ -13,6 +13,10 @@
 
   width: 100vw;
   height: 100vh;
+}
+
+.modal {
+  display: none;
 }
 
 .modal__background {
