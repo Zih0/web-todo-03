@@ -9,6 +9,11 @@
   background: var(--white);
   border: 1px solid var(--grey-200);
   border-radius: 6px;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .card__header {
