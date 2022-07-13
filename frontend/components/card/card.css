@@ -1,3 +1,5 @@
+@import '../../styles/reset.css';
+
 .card {
   padding: 16px;
 
@@ -20,25 +22,45 @@
   font-size: 20px;
   line-height: 24px;
 
-  color: var(--balck);
+  color: var(--black);
+}
+
+.card__title__input {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: var(--black);
+}
+
+.card__title__input::placeholder {
+  color: var(--grey-400);
 }
 
 .card__desc {
   margin-top: 8px;
-  width: 252px;
+  width: 100%;
   height: 40px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  word-wrap: break-word;
 
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
 
   color: var(--grey-500);
+}
+
+p.card__desc {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+}
+
+textarea.card__desc {
+  overflow: auto;
+  text-overflow: initial;
 }
 
 .card__tag {
@@ -53,4 +75,17 @@
 
   background-color: var(--purple-200);
   color: var(--white);
+}
+
+.card__close-btn {
+  border: none;
+  background-color: transparent;
+}
+
+.card__button__wrapper {
+  margin-top: 16px;
+
+  display: flex;
+  justify-content: center;
+  gap: 8px;
 }

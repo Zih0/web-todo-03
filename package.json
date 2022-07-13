@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:server": "nodemon backend/app.js",
-    "dev:frontend": "webpack serve --config ./frontend/webpack.config.js --mode development",
+    "dev:frontend": "webpack serve --config ./frontend/webpack.config.js",
     "lint": "eslint frontend/**/*.ts",
     "lint:fix": "eslint frontend/**/*.ts --fix",
     "build:frontend": "webpack --config ./frontend/webpack.config.js"
