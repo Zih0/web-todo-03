@@ -49,11 +49,21 @@ class Card extends Component {
     console.log('submit');
   }
 
+  handleKeydownTextArea(e) {
+    const descriptionTextArea = e.target;
+
+    console.log(descriptionTextArea.scrollHeight);
+
+    descriptionTextArea.style.height = 'auto';
+    descriptionTextArea.style.height = `${descriptionTextArea.scrollHeight}px`;
+  }
+
   setEvent() {
     this.addEvent('dblclick', '.card', this.handleDlbClickCard.bind(this));
     this.addEvent('click', '.card__close-btn', this.handleClickCloseButton.bind(this));
     this.addEvent('click', '#card__cancel-btn', this.handleClickCancelButton.bind(this));
     this.addEvent('click', '#card__submit-btn', this.handleClickSubmitButton.bind(this));
+    this.addEvent('keydown', 'textarea.card__desc', this.handleKeydownTextArea.bind(this));
   }
 
   setTemplate() {

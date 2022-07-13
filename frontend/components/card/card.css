@@ -59,8 +59,9 @@ p.card__desc {
 }
 
 textarea.card__desc {
-  overflow: auto;
-  text-overflow: initial;
+  resize: none;
+  overflow-y: hidden; /* prevents scroll bar flash */
+  text-overflow: inherit;
 }
 
 .card__tag {
