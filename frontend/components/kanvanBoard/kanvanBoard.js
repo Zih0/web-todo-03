@@ -3,6 +3,25 @@ import Component from '../core/component.js';
 import IconClose from '../../assets/icons/close.svg';
 import IconPlus from '../../assets/icons/plus.svg';
 
+const DUMMY = [
+  {
+    title: 'test',
+    description: 'abc',
+  },
+  {
+    title: 'test',
+    description: 'abc',
+  },
+  {
+    title: 'test',
+    description: 'abc',
+  },
+  {
+    title: 'test',
+    description: 'abc',
+  },
+];
+
 class KanvanBoard extends Component {
   constructor() {
     super();
@@ -25,7 +44,9 @@ class KanvanBoard extends Component {
           </div>
         </div>
         <div class="kanvan__card__list">
-            <todo-card></todo-card>
+            ${DUMMY.map(
+              (data) => `<todo-card title="${data.title}" description="${data.description}"></todo-card>`,
+            ).join('')}
         </div>
       </div>`;
   }

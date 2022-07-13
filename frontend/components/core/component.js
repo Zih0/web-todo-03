@@ -9,15 +9,13 @@ class Component extends HTMLElement {
 
     this.attachShadow({ mode: 'open' });
     this.init();
-
-    this.reRender = this.render.bind(this);
   }
 
   init() {
     this.render();
     this.setStyle();
     this.shadowRoot?.append(this.styles, this.template.content.cloneNode(true));
-    this.addEvent();
+    // this.addEvent();
   }
 
   /*
@@ -32,12 +30,31 @@ class Component extends HTMLElement {
     return '';
   }
 
-  addEvent() {
-    return;
+  /*
+   * 컴포넌트 이벤트를 넣어줍니다.
+   */
+  setEvent() {}
+
+  addEvent(event, selector, cb) {
+    const children = [...this.shadowRoot.querySelectorAll(selector)];
+    const isTarget = (target) => children.includes(target) || target.closest(selector);
+
+    this.shadowRoot.addEventListener(event, (e) => {
+      if (isTarget(e.target)) cb(e);
+    });
   }
 
   render() {
     this.template.innerHTML = this.setTemplate();
+  }
+
+  reRender() {
+    this.render();
+
+    this.shadowRoot.innerHTML = '';
+    this.shadowRoot.append(this.styles, this.template.content.cloneNode(true));
+
+    this.setEvent();
   }
 
   /*

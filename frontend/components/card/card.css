@@ -80,6 +80,8 @@ textarea.card__desc {
 .card__close-btn {
   border: none;
   background-color: transparent;
+
+  cursor: pointer;
 }
 
 .card__button__wrapper {

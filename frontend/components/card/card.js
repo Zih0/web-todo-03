@@ -37,16 +37,29 @@ class Card extends Component {
     console.log('delete');
   }
 
-  addEvent() {
-    this.addEventListener('dblclick', this.handleDlbClickCard.bind(this));
+  handleClickCancelButton(e) {
+    this.cardType = CARD_TYPE.NORMAL;
+
+    this.reRender();
+  }
+
+  handleClickSubmitButton(e) {
+    e.stopPropagation();
+
+    console.log('submit');
+  }
+
+  setEvent() {
+    this.addEvent('dblclick', '.card', this.handleDlbClickCard.bind(this));
+    this.addEvent('click', '.card__close-btn', this.handleClickCloseButton.bind(this));
+    this.addEvent('click', '#card__cancel-btn', this.handleClickCancelButton.bind(this));
+    this.addEvent('click', '#card__submit-btn', this.handleClickSubmitButton.bind(this));
   }
 
   setTemplate() {
     if (this.cardType === CARD_TYPE.NORMAL) return this.getNormalCardTemplate();
 
     if (this.cardType === CARD_TYPE.MODIFY) return this.getModifyCardTemplate();
-
-    // return this.getNormalCardTemplate();
   }
 
   getNormalCardTemplate() {
@@ -70,8 +83,8 @@ class Card extends Component {
       </div>
       <textarea class="card__desc" placeholder="내용을 입력해주세요.">${this.getAttribute('description')}</textarea>
       <div class="card__button__wrapper">
-        <custom-button text="취소"></custom-button>
-        <custom-button type="primary" text="등록"></custom-button>
+        <custom-button id="card__cancel-btn" text="취소"></custom-button>
+        <custom-button id="card__submit-btn" type="primary" text="등록"></custom-button>
       </div>
     </div>`;
   }
