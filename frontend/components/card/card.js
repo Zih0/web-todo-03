@@ -12,9 +12,7 @@ class Card extends Component {
   constructor() {
     super();
 
-    this.cardType = CARD_TYPE.NORMAL;
-
-    this.reRender();
+    this.setAttribute('card-type', CARD_TYPE.NORMAL);
   }
 
   setStyle() {
@@ -22,10 +20,10 @@ class Card extends Component {
   }
 
   toggleCardType() {
-    if (this.cardType === CARD_TYPE.MODIFY) {
-      this.cardType = CARD_TYPE.NORMAL;
+    if (this.getAttribute('card-type') === CARD_TYPE.MODIFY) {
+      this.setAttribute('card-type', CARD_TYPE.NORMAL);
     } else {
-      this.cardType = CARD_TYPE.MODIFY;
+      this.setAttribute('card-type', CARD_TYPE.MODIFY);
     }
   }
 
@@ -33,7 +31,6 @@ class Card extends Component {
     if (this.cardType === CARD_TYPE.MODIFY) return;
 
     this.toggleCardType();
-    this.reRender();
   }
 
   handleClickCloseButton(e) {
@@ -47,8 +44,6 @@ class Card extends Component {
 
   handleClickCancelButton(e) {
     this.toggleCardType();
-
-    this.reRender();
   }
 
   handleClickSubmitButton(e) {
@@ -90,9 +85,9 @@ class Card extends Component {
   }
 
   setTemplate() {
-    if (this.cardType === CARD_TYPE.NORMAL) return this.getNormalCardTemplate();
+    if (this.getAttribute('card-type') === CARD_TYPE.NORMAL) return this.getNormalCardTemplate();
 
-    if (this.cardType === CARD_TYPE.MODIFY) return this.getModifyCardTemplate();
+    if (this.getAttribute('card-type') === CARD_TYPE.MODIFY) return this.getModifyCardTemplate();
   }
 
   getNormalCardTemplate() {
@@ -124,7 +119,7 @@ class Card extends Component {
   }
 
   static get observedAttributes() {
-    return ['title', 'description'];
+    return ['title', 'description', 'card-type'];
   }
 }
 

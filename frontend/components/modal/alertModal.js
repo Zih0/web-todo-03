@@ -14,6 +14,7 @@ class AlertModal extends Component {
 
   close() {
     this.shadowRoot.querySelector('.modal').classList.remove('open');
+    this.removeAttribute('card-id');
   }
 
   setStyle() {
