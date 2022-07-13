@@ -21,13 +21,21 @@ class Card extends Component {
     this.styles.textContent = cardStyle;
   }
 
+  toggleCardType() {
+    if (this.cardType === CARD_TYPE.MODIFY) {
+      this.cardType = CARD_TYPE.NORMAL;
+    } else {
+      this.cardType = CARD_TYPE.MODIFY;
+    }
+  }
+
   handleDlbClickCard(e) {
     e.stopPropagation();
     e.preventDefault();
 
     if (this.cardType === CARD_TYPE.MODIFY) return;
 
-    this.cardType = CARD_TYPE.MODIFY;
+    this.toggleCardType();
     this.reRender();
   }
 
@@ -36,13 +44,31 @@ class Card extends Component {
   }
 
   handleClickCancelButton(e) {
-    this.cardType = CARD_TYPE.NORMAL;
+    this.toggleCardType();
 
     this.reRender();
   }
 
   handleClickSubmitButton(e) {
     e.stopPropagation();
+    const inputTitle = this.shadowRoot.querySelector('input.card__title');
+
+    if (!inputTitle.value) return;
+
+    this.cardType = CARD_TYPE.NORMAL;
+    const descriptionTextArea = this.shadowRoot.querySelector('textarea.card__desc');
+    this.setAttribute('description', descriptionTextArea.value);
+  }
+
+  handleInputTitle(e) {
+    const { value: inputValue } = e.target;
+    const submitButton = this.shadowRoot.querySelector('#card__submit-btn').shadowRoot.querySelector('.custom-button');
+
+    if (inputValue) {
+      submitButton.classList.remove('disabled');
+    } else {
+      submitButton.classList.add('disabled');
+    }
   }
 
   handleKeydownTextArea(e) {
@@ -58,6 +84,7 @@ class Card extends Component {
     this.addEvent('click', '#card__cancel-btn', this.handleClickCancelButton.bind(this));
     this.addEvent('click', '#card__submit-btn', this.handleClickSubmitButton.bind(this));
     this.addEvent('keydown', 'textarea.card__desc', this.handleKeydownTextArea.bind(this));
+    this.addEvent('input', 'input.card__title', this.handleInputTitle.bind(this));
   }
 
   setTemplate() {
@@ -83,7 +110,7 @@ class Card extends Component {
     return `
     <div class="card">
       <div class="card__header">
-        <input class="card__title__input" placeholder="제목을 입력하세요." value=${this.getAttribute('title')} />
+        <input class="card__title" placeholder="제목을 입력하세요." value=${this.getAttribute('title')} />
       </div>
       <textarea class="card__desc" placeholder="내용을 입력해주세요.">${this.getAttribute('description')}</textarea>
       <div class="card__button__wrapper">

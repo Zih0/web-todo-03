@@ -25,15 +25,7 @@
   color: var(--black);
 }
 
-.card__title__input {
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
-
-  color: var(--black);
-}
-
-.card__title__input::placeholder {
+input.card__title::placeholder {
   color: var(--grey-400);
 }
 
