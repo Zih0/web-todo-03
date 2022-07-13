@@ -1,0 +1,28 @@
+.noti-wrapper {
+  display: flex;
+  padding: 16px 16px;
+  background-color: var(--white);
+  gap: 16px;
+  width: 332px;
+  /* height: 137px; */
+}
+.emogi {
+  width: 40px;
+  height: 40px;
+  font-size: 32px;
+}
+.noti-contents {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 244px;
+}
+.noti-contents .author {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--black);
+}
+.noti-contents .time {
+  color: var(--grey-400);
+  font-size: 14px;
+}
