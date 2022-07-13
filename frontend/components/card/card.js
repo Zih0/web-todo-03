@@ -1,6 +1,7 @@
 import Component from '../core/component.js';
 import cardStyle from './card.css';
 import IconClose from '../../assets/icons/close.svg';
+import { openAlertModal } from '../../utils/modalUtil.js';
 
 const CARD_TYPE = {
   NORMAL: 'NORMAL',
@@ -39,11 +40,10 @@ class Card extends Component {
   handleClickCloseButton(e) {
     e.stopPropagation();
 
-    const alertModalComponent = document.querySelector('#main__page').shadowRoot.querySelector('#alert__modal');
-    alertModalComponent.setAttribute('card-id', this.getAttribute('card-id'));
-    const alertModal = alertModalComponent.shadowRoot.querySelector('.modal');
+    const alertModal = document.querySelector('alert-modal');
+    alertModal.setAttribute('card-id', this.getAttribute('card-id'));
 
-    alertModal.classList.add('open');
+    openAlertModal();
   }
 
   handleClickCancelButton(e) {

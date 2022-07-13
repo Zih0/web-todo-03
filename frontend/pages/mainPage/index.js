@@ -20,11 +20,14 @@ export default class MainPage extends Component {
             </div>
             <div class="kanvan__container">
               <todo-kanvan id="main__kanvan__todo"></todo-kanvan>
-              <todo-kanvan id="main__kanvan__progress"></todo-kanvan>
-              <todo-kanvan id="main__kanvan__done"></todo-kanvan>
             </div>
           </div>
         </div>
       `;
   }
+}
+
+{
+  /* <todo-kanvan id="main__kanvan__progress"></todo-kanvan>
+              <todo-kanvan id="main__kanvan__done"></todo-kanvan> */
 }

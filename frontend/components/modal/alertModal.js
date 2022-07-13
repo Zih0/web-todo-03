@@ -26,11 +26,12 @@ class AlertModal extends Component {
 
   handleClickDeleteButton() {
     const cardId = this.getAttribute('card-id');
-    const card = [...document.querySelector('main-page').shadowRoot.querySelectorAll('todo-kanvan')].map(
-      (kanvanBoard) => kanvanBoard.shadowRoot.querySelectorAll(`todo-card[card-id=${cardId}]`),
+    const [card] = [...document.querySelector('main-page').shadowRoot.querySelectorAll('todo-kanvan')].map(
+      (kanvanBoard) => kanvanBoard.shadowRoot.querySelector(`todo-card[card-id="${cardId}"]`),
     );
-    // card.remove();
-    console.log(card);
+
+    card.remove();
+
     // TODO : Delete API 호출
     this.close();
   }
