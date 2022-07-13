@@ -5,19 +5,23 @@ import IconPlus from '../../assets/icons/plus.svg';
 
 const DUMMY = [
   {
-    title: 'test',
+    id: 1,
+    title: 'test1',
     description: 'abc',
   },
   {
-    title: 'test',
+    id: 2,
+    title: 'test2',
     description: 'abc',
   },
   {
-    title: 'test',
+    id: 3,
+    title: 'test3',
     description: 'abc',
   },
   {
-    title: 'test',
+    id: 4,
+    title: 'test4',
     description: 'abc',
   },
 ];
@@ -45,7 +49,8 @@ class KanvanBoard extends Component {
         </div>
         <div class="kanvan__card__list">
             ${DUMMY.map(
-              (data) => `<todo-card title="${data.title}" description="${data.description}"></todo-card>`,
+              (data) =>
+                `<todo-card title="${data.title}" description="${data.description}" card-id="${data.id}"></todo-card>`,
             ).join('')}
         </div>
       </div>`;
