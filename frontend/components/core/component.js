@@ -39,9 +39,15 @@ class Component extends HTMLElement {
     const children = [...this.shadowRoot.querySelectorAll(selector)];
     const isTarget = (target) => children.includes(target) || target.closest(selector);
 
-    this.shadowRoot.addEventListener(event, (e) => {
-      if (isTarget(e.target)) cb(e);
+    children.forEach((element) => {
+      element.addEventListener(event, (e) => {
+        cb(e);
+      });
     });
+
+    // this.shadowRoot.addEventListener(event, (e) => {
+    // if (isTarget(e.target)) cb(e);
+    // });
   }
 
   render() {
