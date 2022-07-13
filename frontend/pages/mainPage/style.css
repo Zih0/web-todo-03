@@ -5,6 +5,27 @@
   display: flex;
   flex-direction: column;
 }
+.contents__container {
+  padding-left: 164px;
+  margin-top: 28px;
+  display: flex;
+  gap: 42px;
+  flex-direction: column;
+}
+.project-header {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.project-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+.project-header p {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--grey-500);
+}
 .kanvan__container {
   display: flex;
   gap: 48px;
