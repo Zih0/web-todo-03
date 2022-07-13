@@ -5,6 +5,7 @@ import NotificationPanel from './components/notificationPanel/notificationPanel.
 import AlertModal from './components/modal/alertModal.js';
 import MainPage from './pages/mainPage/index.js';
 import Header from './components/header/header.js';
+import Notification from './components/notification/notification.js';
 
 window.addEventListener('DOMContentLoaded', () => {
   customElements.define('custom-button', CustomButton);
@@ -14,4 +15,5 @@ window.addEventListener('DOMContentLoaded', () => {
   customElements.define('main-page', MainPage);
   customElements.define('alert-modal', AlertModal);
   customElements.define('todo-header', Header);
+  customElements.define('notification-card', Notification);
 });
