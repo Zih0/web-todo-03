@@ -1,6 +1,18 @@
 import Component from '../core/component.js';
 import NotificationStyle from './notification.css';
 
+const TODO_ACTION_TYPE = {
+  CREATE: 'CREATE',
+  UPDATE: 'UPDATE',
+  DELETE: 'DELETE',
+  MOVE: 'MOVE',
+};
+const TODO_ACTION_EMOGI = {
+  [TODO_ACTION_TYPE.CREATE]: '🥳',
+  [TODO_ACTION_TYPE.UPDATE]: '🛠',
+  [TODO_ACTION_TYPE.MOVE]: '🚀',
+  [TODO_ACTION_TYPE.DELETE]: '👻',
+};
 class Notification extends Component {
   constructor() {
     super();
@@ -9,20 +21,7 @@ class Notification extends Component {
     this.styles.textContent = NotificationStyle;
   }
   setEmogi(action) {
-    switch (action) {
-      case 'create':
-        return '🥳';
-        break;
-      case 'update':
-        return '🛠';
-        break;
-      case 'delete':
-        return '👻';
-        break;
-      case 'move':
-        return '🚀';
-        break;
-    }
+    return TODO_ACTION_EMOGI[action];
   }
 
   setTemplate() {
