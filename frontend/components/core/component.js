@@ -17,7 +17,7 @@ class Component extends HTMLElement {
     this.render();
     this.setStyle();
     this.shadowRoot?.append(this.styles, this.template.content.cloneNode(true));
-    this.addEvent();
+    this.setEvent();
   }
 
   /*
