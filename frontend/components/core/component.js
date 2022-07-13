@@ -6,22 +6,62 @@ class Component extends HTMLElement {
 
     this.template = document.createElement('template');
     this.styles = document.createElement('style');
+
+    this.attachShadow({ mode: 'open' });
+    this.init();
+
+    this.reRender = this.render.bind(this);
   }
 
-  setStyle() {
-    return;
+  init() {
+    this.render();
+    this.setStyle();
+    this.shadowRoot?.append(this.styles, this.template.content.cloneNode(true));
+    this.addEvent();
   }
 
+  /*
+   * 각 컴포넌트에서 shadowDOM에 넣을 style을 삽입해줍니다.
+   */
+  setStyle() {}
+
+  /*
+   * 웹컴포넌트 innerHTML
+   */
   setTemplate() {
     return '';
   }
 
-  connectedCallback() {
-    this.attachShadow({ mode: 'open' });
-    this.template.innerHTML = this.setTemplate();
-    this.setStyle();
+  addEvent() {
+    return;
+  }
 
-    this.shadowRoot?.append(this.styles, this.template.content.cloneNode(true));
+  render() {
+    this.template.innerHTML = this.setTemplate();
+  }
+
+  /*
+   * componentDidMount
+   */
+  connectedCallback() {}
+
+  /*
+   * componentWillUnmount
+   */
+  disconnectedCallback() {}
+
+  /*
+   * attribute 구독
+   */
+  static get observedAttributes() {
+    return [];
+  }
+
+  /*
+   * 구독한 attribute가 변경되었을 때, Callback 처리
+   */
+  attributeChangedCallback(name, oldValue, newValue) {
+    this.reRender();
   }
 }
 export default Component;
