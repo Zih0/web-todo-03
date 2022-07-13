@@ -30,7 +30,7 @@ class Card extends Component {
     }
   }
 
-  handleDlbClickCard(e) {
+  handleDoubleClickCard(e) {
     if (this.cardType === CARD_TYPE.MODIFY) return;
 
     this.toggleCardType();
