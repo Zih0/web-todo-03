@@ -33,8 +33,6 @@ class Card extends Component {
 
   handleClickCloseButton(e) {
     e.stopPropagation();
-
-    console.log('delete');
   }
 
   handleClickCancelButton(e) {
@@ -45,14 +43,10 @@ class Card extends Component {
 
   handleClickSubmitButton(e) {
     e.stopPropagation();
-
-    console.log('submit');
   }
 
   handleKeydownTextArea(e) {
     const descriptionTextArea = e.target;
-
-    console.log(descriptionTextArea.scrollHeight);
 
     descriptionTextArea.style.height = 'auto';
     descriptionTextArea.style.height = `${descriptionTextArea.scrollHeight}px`;
