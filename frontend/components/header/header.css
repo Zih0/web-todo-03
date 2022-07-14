@@ -29,7 +29,7 @@ h1 {
   background-color: var(--grey-200);
 }
 .panel-button img {
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
 }
