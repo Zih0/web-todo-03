@@ -15,6 +15,9 @@
   -ms-user-select: none;
   user-select: none;
 }
+.modify {
+  border: 1px solid var(--purple-100);
+}
 
 .card__header {
   display: flex;
@@ -56,9 +59,16 @@ p.card__desc {
 }
 
 textarea.card__desc {
+  padding: 4px 8px;
+  box-sizing: border-box;
   resize: none;
   overflow-y: hidden; /* prevents scroll bar flash */
   text-overflow: inherit;
+}
+textarea.card__desc:focus {
+  outline-color: var(--purple-100);
+  background-color: #f1eefdbe;
+  border-radius: 6px;
 }
 
 .card__tag {
@@ -78,8 +88,13 @@ textarea.card__desc {
 .card__close-btn {
   border: none;
   background-color: transparent;
-
   cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+.card__close-btn:hover {
+  background-color: var(--grey-200);
+  border-radius: 50%;
 }
 
 .card__button__wrapper {

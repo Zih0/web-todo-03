@@ -290,7 +290,7 @@ class Card extends Component {
 
   getModifyCardTemplate() {
     return `
-    <div class="card">
+    <div class="card modify">
       <div class="card__header">
         <input class="card__title" placeholder="제목을 입력하세요." value=${this.getAttribute('title') || 'a'} />
       </div>
