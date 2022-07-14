@@ -12,11 +12,11 @@ class NotificationService {
       })
       .catch((e) => console.log(e));
   }
-  createNotification(todo_id, action, kanvans) {
-    const insert_sql = `INSERT INTO notification (todo_id, action, kanvans, cdate) VALUES ("${todo_id}", "${action}","${kanvans}",NOW())`;
+  createNotification(todo_id, action, kanvans, responseCallback) {
+    const sql = `INSERT INTO notification (todo_id, action, kanvans, cdate) VALUES ("${todo_id}", "${action}","${kanvans}",NOW())`;
 
     dbPool.getConnection().then((connection) => {
-      connection.query(insert_sql).then((response) => console.log(response));
+      connection.query(insert_sql).then(() => responseCallback());
     });
   }
 }
