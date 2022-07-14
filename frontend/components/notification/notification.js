@@ -2,10 +2,10 @@ import Component from '../core/component.js';
 import NotificationStyle from './notification.css';
 
 const TODO_ACTION_TYPE = {
-  CREATE: 'CREATE',
-  UPDATE: 'UPDATE',
-  DELETE: 'DELETE',
-  MOVE: 'MOVE',
+  CREATE: 'create',
+  UPDATE: 'update',
+  DELETE: 'delete',
+  MOVE: 'move',
 };
 const TODO_ACTION_EMOGI = {
   [TODO_ACTION_TYPE.CREATE]: '🥳',
@@ -25,10 +25,11 @@ class Notification extends Component {
   }
 
   setTemplate() {
-    const emogi = this.setEmogi('create');
-    const author = '경민';
-    const notification = '해야할 일에 컴포넌트 리팩터링을 등록하였습니다.';
-    const time = '1분';
+    const time = this.getAttribute('time');
+    const notification = this.getAttribute('noti');
+    const action = this.getAttribute('action');
+    const emogi = this.setEmogi(action);
+    const author = '우캠이';
 
     return `
             <div class="noti-wrapper">

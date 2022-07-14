@@ -1,10 +1,17 @@
-.panel-wrapper {
+@import '../../styles/reset.css';
+@import '../../styles/style.css';
+
+.panel-wrapper.open {
   position: fixed;
+  display: block;
   width: 100vw;
   height: 100vh;
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
+}
+.panel-wrapper {
+  display: none;
 }
 .panel-wrapper .panel {
   position: absolute;

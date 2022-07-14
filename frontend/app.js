@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
   customElements.define('custom-button', CustomButton);
   customElements.define('todo-card', Card);
   customElements.define('todo-kanvan', KanvanBoard);
-  customElements.define('todo-notification', NotificationPanel);
+  customElements.define('notification-panel', NotificationPanel);
   customElements.define('main-page', MainPage);
   customElements.define('alert-modal', AlertModal);
   customElements.define('todo-header', Header);

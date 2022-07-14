@@ -1,9 +1,18 @@
 import Component from '../core/component.js';
 import HeaderStyle from './header.css';
 import IconBell from '../../assets/icons/bell.svg';
+import { disableBodyScroll } from '../../utils/styleUtil.js';
 class Header extends Component {
   constructor() {
     super();
+  }
+  handleOpenPanel() {
+    const panel = document.querySelector('#notification-panel').shadowRoot.querySelector('.panel-wrapper');
+    panel.classList.add('open');
+    disableBodyScroll();
+  }
+  setEvent() {
+    this.addEvent('click', '.panel-button', this.handleOpenPanel.bind(this));
   }
   setStyle() {
     this.styles.textContent = HeaderStyle;
