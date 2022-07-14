@@ -10,9 +10,12 @@ class TodoService {
     const action = 'create';
 
     dbPool.getConnection().then((connection) =>
-      connection.query(sql).then(([response]) => {
-        notificationService.createNotification(response.insertId, action, status, responseCallback);
-      }),
+      connection
+        .query(sql)
+        .then(([response]) => {
+          notificationService.createNotification(response.insertId, action, status, responseCallback);
+        })
+        .catch((err) => console.log(err)),
     );
   }
 
@@ -20,7 +23,10 @@ class TodoService {
     const sql = 'SELECT todo_id, status, title, description FROM todo WHERE is_delete=0';
 
     dbPool.getConnection().then((connection) => {
-      connection.query(sql).then(([data]) => responseCallback(data));
+      connection
+        .query(sql)
+        .then(([data]) => responseCallback(data))
+        .catch((err) => console.log(err));
     });
   }
 
@@ -39,9 +45,12 @@ class TodoService {
     const action = status ? 'move' : 'update';
 
     dbPool.getConnection().then((connection) => {
-      connection.query(sql).then(() => {
-        notificationService.createNotification(todo_id, action, status, responseCallback);
-      });
+      connection
+        .query(sql)
+        .then(() => {
+          notificationService.createNotification(todo_id, action, status, responseCallback);
+        })
+        .catch((err) => console.log(err));
     });
   }
 
@@ -50,9 +59,12 @@ class TodoService {
     const action = 'delete';
 
     dbPool.getConnection().then((connection) => {
-      connection.query(sql).then(() => {
-        notificationService.createNotification(todo_id, action, status, responseCallback);
-      });
+      connection
+        .query(sql)
+        .then(() => {
+          notificationService.createNotification(todo_id, action, status, responseCallback);
+        })
+        .catch((err) => console.log(err));
     });
   }
 }

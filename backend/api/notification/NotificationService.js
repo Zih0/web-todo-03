@@ -16,7 +16,10 @@ class NotificationService {
     const sql = `INSERT INTO notification (todo_id, action, kanvans, cdate) VALUES ("${todo_id}", "${action}","${kanvans}",NOW())`;
 
     dbPool.getConnection().then((connection) => {
-      connection.query(sql).then(() => responseCallback());
+      connection
+        .query(sql)
+        .then(() => responseCallback())
+        .catch((err) => console.log(err));
     });
   }
 }
