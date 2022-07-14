@@ -3,7 +3,7 @@ import cardStyle from './card.css';
 import IconClose from '../../assets/icons/close.svg';
 import { openAlertModal } from '../../utils/modalUtil.js';
 
-const CARD_TYPE = {
+export const CARD_TYPE = {
   NORMAL: 'NORMAL',
   MODIFY: 'MODIFY',
 };

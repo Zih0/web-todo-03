@@ -1,4 +1,5 @@
 .kanvan {
+  min-width: 374px;
   width: fit-content;
   padding: 20px 16px;
   display: flex;

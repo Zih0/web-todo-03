@@ -2,29 +2,13 @@ import kanvanBoardStyle from './kanvanBoard.css';
 import Component from '../core/component.js';
 import IconClose from '../../assets/icons/close.svg';
 import IconPlus from '../../assets/icons/plus.svg';
+import { TODO_STATUS } from '../../pages/mainPage/index.js';
 
-const DUMMY = [
-  {
-    id: 1,
-    title: 'test1',
-    description: 'abc',
-  },
-  {
-    id: 2,
-    title: 'test2',
-    description: 'abc',
-  },
-  {
-    id: 3,
-    title: 'test3',
-    description: 'abc',
-  },
-  {
-    id: 4,
-    title: 'test4',
-    description: 'abc',
-  },
-];
+const KANVANBOARD_TITLE = {
+  [TODO_STATUS.TODO]: 'TODO',
+  [TODO_STATUS.PROGRESS]: 'IN PROGRESS',
+  [TODO_STATUS.DONE]: 'DONE',
+};
 
 class KanvanBoard extends Component {
   constructor() {
@@ -36,11 +20,14 @@ class KanvanBoard extends Component {
   }
 
   setTemplate() {
+    const title = this.getAttribute('title');
+    const dataList = this.getAttribute('data-list') ? JSON.parse(this.getAttribute('data-list')) : [];
+
     return `<div class="kanvan">
         <div class="kanvan__header">
           <div class="kanvan__header__left">
-            <p class="kanvan__title">TODO</p>
-            <p class="kanvan__count">2</p>
+            <p class="kanvan__title">${KANVANBOARD_TITLE[title]}</p>
+            <p class="kanvan__count">${dataList.length}</p>
           </div>
           <div class="kanvan__header__right">
             <img src=${IconPlus} alt="추가" />
@@ -48,12 +35,18 @@ class KanvanBoard extends Component {
           </div>
         </div>
         <div class="kanvan__card__list">
-            ${DUMMY.map(
-              (data) =>
-                `<todo-card title="${data.title}" description="${data.description}" card-id="${data.id}"></todo-card>`,
-            ).join('')}
+            ${dataList
+              .map(
+                (data) =>
+                  `<todo-card title="${data.title}" description="${data.description}" card-id="${data.todo_id}"></todo-card>`,
+              )
+              .join('')}
         </div>
       </div>`;
+  }
+
+  static get observedAttributes() {
+    return ['data-list', 'title'];
   }
 }
 

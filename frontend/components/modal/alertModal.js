@@ -4,8 +4,6 @@ import alertModalStyle from './alertModal.css';
 class AlertModal extends Component {
   constructor() {
     super();
-
-    this.setEvent();
   }
 
   open() {
@@ -25,13 +23,14 @@ class AlertModal extends Component {
     this.close();
   }
 
-  handleClickDeleteButton() {
-    const cardId = this.getAttribute('card-id');
-    const [card] = [...document.querySelector('main-page').shadowRoot.querySelectorAll('todo-kanvan')].map(
-      (kanvanBoard) => kanvanBoard.shadowRoot.querySelector(`todo-card[card-id="${cardId}"]`),
-    );
+  handleClickDeleteButton(e) {
+    e.stopPropagation();
 
-    card.remove();
+    const cardId = this.getAttribute('card-id');
+
+    const dataList = JSON.parse(document.querySelector('main-page').getAttribute('data-list'));
+    const newDataList = dataList.filter((data) => data.todo_id !== Number(cardId));
+    document.querySelector('main-page').setAttribute('data-list', JSON.stringify(newDataList));
 
     // TODO : Delete API 호출
     this.close();
