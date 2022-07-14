@@ -3,6 +3,7 @@ import Component from '../core/component.js';
 import IconClose from '../../assets/icons/close.svg';
 import IconPlus from '../../assets/icons/plus.svg';
 import { TODO_STATUS } from '../../pages/mainPage/index.js';
+import { CARD_TYPE } from '../card/card.js';
 
 const KANVANBOARD_TITLE = {
   [TODO_STATUS.TODO]: 'TODO',
@@ -19,6 +20,22 @@ class KanvanBoard extends Component {
     this.styles.textContent = kanvanBoardStyle;
   }
 
+  handleClickAddButton(e) {
+    const cardList = this.shadowRoot.querySelector('.kanvan__card__list');
+
+    // 생성중인 카드가 있을 땐 새로운 카드가 안생기도록 설정
+    if (cardList.firstElementChild.getAttribute('card-type') === CARD_TYPE.CREATE) return;
+
+    const newCard = `<todo-card card-type="${CARD_TYPE.CREATE}"></todo-card>`;
+    const fragment = document.createElement('template');
+    fragment.innerHTML = newCard;
+    cardList.insertBefore(fragment.content, cardList.firstChild);
+  }
+
+  setEvent() {
+    this.addEvent('click', '#kanvan__add-btn', this.handleClickAddButton.bind(this));
+  }
+
   setTemplate() {
     const title = this.getAttribute('title');
     const dataList = this.getAttribute('data-list') ? JSON.parse(this.getAttribute('data-list')) : [];
@@ -30,7 +47,7 @@ class KanvanBoard extends Component {
             <p class="kanvan__count">${dataList.length}</p>
           </div>
           <div class="kanvan__header__right">
-            <img src=${IconPlus} alt="추가" />
+            <img id="kanvan__add-btn" src=${IconPlus} alt="추가" />
             <img src=${IconClose} alt="삭제" />
           </div>
         </div>
@@ -38,7 +55,7 @@ class KanvanBoard extends Component {
             ${dataList
               .map(
                 (data) =>
-                  `<todo-card title="${data.title}" description="${data.description}" card-id="${data.todo_id}"></todo-card>`,
+                  `<todo-card title="${data.title}" description="${data.description}" card-id="${data.todo_id}" card-type="${CARD_TYPE.NORMAL}"></todo-card>`,
               )
               .join('')}
         </div>
