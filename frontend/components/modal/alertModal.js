@@ -1,7 +1,7 @@
 import { deleteTodo } from '../../api/todo.js';
-import fetcher from '../../utils/fetcher.js';
 import Component from '../core/component.js';
 import alertModalStyle from './alertModal.css';
+import { enableBodyScroll } from '../../utils/styleUtil.js';
 
 class AlertModal extends Component {
   constructor() {
@@ -15,6 +15,7 @@ class AlertModal extends Component {
   close() {
     this.shadowRoot.querySelector('.modal').classList.remove('open');
     this.removeAttribute('card-id');
+    enableBodyScroll();
   }
 
   setStyle() {

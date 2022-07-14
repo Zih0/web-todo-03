@@ -35,12 +35,12 @@ export default class MainPage extends Component {
   setTemplate() {
     this.filterDataList();
 
-    const todoTitle = 'Woowa! Todo🚀';
+    const todoTitle = 'Woowa! Todo 🚀';
     const projectTitle = 'Todo Project!';
     const projectDesc = '신지호, 김경민이 함께하는 todo project 입니다. with vanilla JS, nodeJS, web component API ...';
     return `
         <div class="main__container">
-          <todo-header text=${todoTitle}></todo-header>
+          <todo-header text="${todoTitle}"></todo-header>
           <div class="contents__container">
             <div class="project-header">
               <h1>${projectTitle}</h1>
