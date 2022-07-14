@@ -25,6 +25,11 @@
   font-weight: 400;
   color: var(--black);
 }
+.noti-contents .noti span {
+  font-weight: 700;
+  font-size: 16px;
+  padding: 0 3px;
+}
 .noti-contents .time {
   color: var(--grey-400);
   font-size: 14px;
