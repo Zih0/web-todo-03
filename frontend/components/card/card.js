@@ -11,6 +11,8 @@ export const CARD_TYPE = {
   CREATE: 'CREATE',
 };
 
+const DRAG_DELAY_TIME = 250;
+
 class Card extends Component {
   constructor() {
     super();
@@ -103,9 +105,12 @@ class Card extends Component {
     if (e.target.closest('.card__close-btn')) return;
     this.setAttribute('dragging', '');
 
+    const initialX = e.pageX;
+    const initialY = e.pageY;
+    const { top: initialTop, left: initialLeft } = this.getBoundingClientRect();
+
     setTimeout(() => {
       if (!this.hasAttribute('dragging')) return;
-
       this.setDragging(this);
 
       const cloneCard = this.cloneNode(true);
@@ -122,9 +127,11 @@ class Card extends Component {
       const moveAt = (x, y) => {
         this.checkPosition(x, y);
 
-        cloneCard.style.left = x - cloneCard.offsetHeight / 2 + 'px';
+        const offsetX = x - initialX;
+        const offsetY = y - initialY;
 
-        cloneCard.style.top = y - cloneCard.offsetHeight / 2 + 'px';
+        cloneCard.style.top = `${initialTop + offsetY}px`;
+        cloneCard.style.left = `${initialLeft + offsetX}px`;
       };
 
       moveAt(e.pageX, e.pageY);
@@ -139,13 +146,11 @@ class Card extends Component {
         cloneCard.removeEventListener('mousemove', handleMoveCard);
 
         this.deleteDragging(this);
-
-        // 드래그 한 카드 삭제
         document.querySelector('main-page').shadowRoot.removeChild(cloneCard);
         this.moveCard();
       };
       cloneCard.addEventListener('mouseup', handlePutCard);
-    }, 300);
+    }, DRAG_DELAY_TIME);
   }
 
   removeCard() {
