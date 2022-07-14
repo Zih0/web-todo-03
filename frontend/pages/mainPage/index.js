@@ -1,44 +1,6 @@
+import { getTodoList } from '../../api/todo.js';
 import Component from '../../components/core/component.js';
 import pageStyle from './style.css';
-
-const DUMMY = [
-  {
-    todo_id: 1,
-    status: 'todo',
-    title: 'dfsdf',
-    description: 'dfssdf',
-  },
-  {
-    todo_id: 12,
-    status: 'progress',
-    title: 'dfsdf',
-    description: 'dfssdf',
-  },
-  {
-    todo_id: 13,
-    status: 'progress',
-    title: 'dfsdf',
-    description: 'dfssdf',
-  },
-  {
-    todo_id: 14,
-    status: 'done',
-    title: 'dfsdf',
-    description: 'dfssdf',
-  },
-  {
-    todo_id: 15,
-    status: 'todo',
-    title: 'dfsdf',
-    description: 'dfssdf',
-  },
-  {
-    todo_id: 16,
-    status: 'todo',
-    title: 'dfsdf',
-    description: 'dfssdf',
-  },
-];
 
 export const TODO_STATUS = {
   TODO: 'todo',
@@ -59,9 +21,7 @@ export default class MainPage extends Component {
   }
 
   getTodoData() {
-    const todoData = DUMMY;
-
-    this.setAttribute('data-list', JSON.stringify(todoData));
+    getTodoList().then((todoData) => this.setAttribute('data-list', JSON.stringify(todoData)));
   }
 
   filterDataList() {

@@ -24,9 +24,11 @@ class KanvanBoard extends Component {
     const cardList = this.shadowRoot.querySelector('.kanvan__card__list');
 
     // 생성중인 카드가 있을 땐 새로운 카드가 안생기도록 설정
-    if (cardList.firstElementChild.getAttribute('card-type') === CARD_TYPE.CREATE) return;
+    if (cardList.firstElementChild && cardList.firstElementChild.getAttribute('card-type') === CARD_TYPE.CREATE) return;
 
-    const newCard = `<todo-card card-type="${CARD_TYPE.CREATE}"></todo-card>`;
+    const cardStatus = this.getAttribute('title');
+
+    const newCard = `<todo-card card-type="${CARD_TYPE.CREATE}" card-status="${cardStatus}" ></todo-card>`;
     const fragment = document.createElement('template');
     fragment.innerHTML = newCard;
     cardList.insertBefore(fragment.content, cardList.firstChild);
@@ -39,6 +41,7 @@ class KanvanBoard extends Component {
   setTemplate() {
     const title = this.getAttribute('title');
     const dataList = this.getAttribute('data-list') ? JSON.parse(this.getAttribute('data-list')) : [];
+    const cardStatus = this.getAttribute('title');
 
     return `<div class="kanvan">
         <div class="kanvan__header">
@@ -55,7 +58,7 @@ class KanvanBoard extends Component {
             ${dataList
               .map(
                 (data) =>
-                  `<todo-card title="${data.title}" description="${data.description}" card-id="${data.todo_id}" card-type="${CARD_TYPE.NORMAL}"></todo-card>`,
+                  `<todo-card title="${data.title}" description="${data.description}" card-id="${data.todo_id}" card-type="${CARD_TYPE.NORMAL}"  card-status="${cardStatus}"></todo-card>`,
               )
               .join('')}
         </div>

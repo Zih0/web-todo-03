@@ -33,16 +33,16 @@ class TodoService {
   updateTodo(todo_id, status, title, description, responseCallback) {
     let sql = 'UPDATE todo SET ';
 
-    if (status) {
-      const [prevStatus, curStatus] = status.split(',');
+    const [prevStatus, curStatus] = status.split(',');
 
-      sql += `status="${curStatus}", `;
-    }
+    if (curStatus) sql += `status="${status}", `;
+    else sql += `status="${prevStatus}", `;
+
     if (title) sql += `title="${title}", `;
     if (description) sql += `description="${description}", `;
     sql += `date=NOW() WHERE todo_id=${todo_id}`;
 
-    const action = status ? 'move' : 'update';
+    const action = curStatus ? 'move' : 'update';
 
     dbPool.getConnection().then((connection) => {
       connection

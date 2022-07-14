@@ -1,4 +1,3 @@
-import connection from '../../config/db.js';
 import dbPool from '../../config/db.js';
 
 class NotificationService {

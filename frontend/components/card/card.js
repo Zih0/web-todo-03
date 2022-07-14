@@ -2,6 +2,7 @@ import Component from '../core/component.js';
 import cardStyle from './card.css';
 import IconClose from '../../assets/icons/close.svg';
 import { openAlertModal } from '../../utils/modalUtil.js';
+import { createTodo, updateTodo } from '../../api/todo.js';
 
 export const CARD_TYPE = {
   NORMAL: 'NORMAL',
@@ -55,6 +56,7 @@ class Card extends Component {
 
     const alertModal = document.querySelector('alert-modal');
     alertModal.setAttribute('card-id', this.getAttribute('card-id'));
+    alertModal.setAttribute('card-status', this.getAttribute('card-status'));
 
     openAlertModal();
   }
@@ -71,9 +73,27 @@ class Card extends Component {
     if (!inputTitle.value) return;
 
     const descriptionTextArea = this.shadowRoot.querySelector('textarea.card__desc');
-    this.setAttribute('title', inputTitle.value);
-    this.setAttribute('description', descriptionTextArea.value);
-    this.setAttribute('card-type', CARD_TYPE.NORMAL);
+
+    const cardStatus = this.getAttribute('card-status');
+    const cardType = this.getAttribute('card-type');
+
+    if (cardType === CARD_TYPE.CREATE) {
+      createTodo(cardStatus, inputTitle.value, descriptionTextArea.value)
+        .then(() => {
+          this.setAttribute('title', inputTitle.value);
+          this.setAttribute('description', descriptionTextArea.value);
+          this.setAttribute('card-type', CARD_TYPE.NORMAL);
+        })
+        .catch((err) => console.log(err));
+    } else if (cardType === CARD_TYPE.MODIFY) {
+      const cardId = this.getAttribute('card-id');
+
+      updateTodo(cardId, cardStatus, inputTitle.value, descriptionTextArea.value).then(() => {
+        this.setAttribute('title', inputTitle.value);
+        this.setAttribute('description', descriptionTextArea.value);
+        this.setAttribute('card-type', CARD_TYPE.NORMAL);
+      });
+    }
   }
 
   handleInputTitle(e) {

@@ -1,3 +1,5 @@
+import { deleteTodo } from '../../api/todo.js';
+import fetcher from '../../utils/fetcher.js';
 import Component from '../core/component.js';
 import alertModalStyle from './alertModal.css';
 
@@ -27,13 +29,15 @@ class AlertModal extends Component {
     e.stopPropagation();
 
     const cardId = this.getAttribute('card-id');
+    const cardStatus = this.getAttribute('card-status');
 
     const dataList = JSON.parse(document.querySelector('main-page').getAttribute('data-list'));
     const newDataList = dataList.filter((data) => data.todo_id !== Number(cardId));
     document.querySelector('main-page').setAttribute('data-list', JSON.stringify(newDataList));
 
-    // TODO : Delete API 호출
-    this.close();
+    deleteTodo(cardId, cardStatus)
+      .then(() => this.close())
+      .catch((err) => console.log(err));
   }
 
   setEvent() {

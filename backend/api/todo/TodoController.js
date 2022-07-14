@@ -25,8 +25,6 @@ const updateTodo = (req, res) => {
   const { id } = req.params;
   const { status, title, description } = req.body;
 
-  console.log(id);
-
   // TODO : 에러 핸들링
   //   if (!status && !title && !description) return res.status(403).send({});
 
@@ -36,6 +34,7 @@ const updateTodo = (req, res) => {
     }),
   );
 };
+
 const deleteTodo = (req, res) => {
   const { status } = req.query;
   const { id } = req.params;

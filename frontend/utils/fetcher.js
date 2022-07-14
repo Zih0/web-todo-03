@@ -1,3 +1,5 @@
+const BASE_URL = 'http://13.209.183.185';
+
 const HTTP_METHOD = {
   GET: 'GET',
   POST: 'POST',
@@ -7,7 +9,7 @@ const HTTP_METHOD = {
 
 const fetchWrapper = (url, method, body) =>
   new Promise((resolve, reject) => {
-    fetch(url, {
+    fetch(BASE_URL + url, {
       method,
       headers: {
         'Content-Type': 'application/json',
