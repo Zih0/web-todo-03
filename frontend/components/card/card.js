@@ -6,13 +6,14 @@ import { openAlertModal } from '../../utils/modalUtil.js';
 export const CARD_TYPE = {
   NORMAL: 'NORMAL',
   MODIFY: 'MODIFY',
+  CREATE: 'CREATE',
 };
 
 class Card extends Component {
   constructor() {
     super();
 
-    this.setAttribute('card-type', CARD_TYPE.NORMAL);
+    if (this.getAttribute('card-type') === CARD_TYPE.CREATE) this.disableSubmitButton();
   }
 
   setStyle() {
@@ -27,10 +28,26 @@ class Card extends Component {
     }
   }
 
+  removeCard() {
+    this.remove();
+  }
+
   handleDoubleClickCard(e) {
-    if (this.cardType === CARD_TYPE.MODIFY) return;
+    if (this.getAttribute('card-type') !== CARD_TYPE.NORMAL) return;
 
     this.toggleCardType();
+  }
+
+  enabledSubmitButton() {
+    const submitButton = this.shadowRoot.querySelector('.card__submit-btn').shadowRoot.querySelector('.custom-button');
+
+    submitButton.classList.remove('disabled');
+  }
+
+  disableSubmitButton() {
+    const submitButton = this.shadowRoot.querySelector('.card__submit-btn').shadowRoot.querySelector('.custom-button');
+
+    submitButton.classList.add('disabled');
   }
 
   handleClickCloseButton(e) {
@@ -43,32 +60,30 @@ class Card extends Component {
   }
 
   handleClickCancelButton(e) {
-    this.toggleCardType();
+    if (this.getAttribute('card-type') === CARD_TYPE.MODIFY) this.toggleCardType();
+    if (this.getAttribute('card-type') === CARD_TYPE.CREATE) this.removeCard();
   }
 
   handleClickSubmitButton(e) {
     e.stopPropagation();
-    const inputTitle = this.shadowRoot.querySelector('input.card__title');
 
+    const inputTitle = this.shadowRoot.querySelector('input.card__title');
     if (!inputTitle.value) return;
 
-    this.cardType = CARD_TYPE.NORMAL;
     const descriptionTextArea = this.shadowRoot.querySelector('textarea.card__desc');
+    this.setAttribute('title', inputTitle.value);
     this.setAttribute('description', descriptionTextArea.value);
+    this.setAttribute('card-type', CARD_TYPE.NORMAL);
   }
 
   handleInputTitle(e) {
     const { value: inputValue } = e.target;
-    const submitButton = this.shadowRoot.querySelector('#card__submit-btn').shadowRoot.querySelector('.custom-button');
 
-    if (inputValue) {
-      submitButton.classList.remove('disabled');
-    } else {
-      submitButton.classList.add('disabled');
-    }
+    if (inputValue) this.enabledSubmitButton();
+    else this.disableSubmitButton();
   }
 
-  handleKeydownTextArea(e) {
+  handleInputTextArea(e) {
     const descriptionTextArea = e.target;
 
     descriptionTextArea.style.height = 'auto';
@@ -78,16 +93,16 @@ class Card extends Component {
   setEvent() {
     this.addEvent('dblclick', '.card', this.handleDoubleClickCard.bind(this));
     this.addEvent('click', '.card__close-btn', this.handleClickCloseButton.bind(this));
-    this.addEvent('click', '#card__cancel-btn', this.handleClickCancelButton.bind(this));
-    this.addEvent('click', '#card__submit-btn', this.handleClickSubmitButton.bind(this));
-    this.addEvent('keydown', 'textarea.card__desc', this.handleKeydownTextArea.bind(this));
+    this.addEvent('click', '.card__cancel-btn', this.handleClickCancelButton.bind(this));
+    this.addEvent('click', '.card__submit-btn', this.handleClickSubmitButton.bind(this));
+    this.addEvent('input', 'textarea.card__desc', this.handleInputTextArea.bind(this));
     this.addEvent('input', 'input.card__title', this.handleInputTitle.bind(this));
   }
 
   setTemplate() {
     if (this.getAttribute('card-type') === CARD_TYPE.NORMAL) return this.getNormalCardTemplate();
-
     if (this.getAttribute('card-type') === CARD_TYPE.MODIFY) return this.getModifyCardTemplate();
+    if (this.getAttribute('card-type') === CARD_TYPE.CREATE) return this.getCreateCardTemplate();
   }
 
   getNormalCardTemplate() {
@@ -108,12 +123,26 @@ class Card extends Component {
     return `
     <div class="card">
       <div class="card__header">
-        <input class="card__title" placeholder="제목을 입력하세요." value=${this.getAttribute('title')} />
+        <input class="card__title" placeholder="제목을 입력하세요." value=${this.getAttribute('title') || 'a'} />
       </div>
       <textarea class="card__desc" placeholder="내용을 입력해주세요.">${this.getAttribute('description')}</textarea>
       <div class="card__button__wrapper">
-        <custom-button id="card__cancel-btn" text="취소"></custom-button>
-        <custom-button id="card__submit-btn" type="primary" text="등록"></custom-button>
+        <custom-button class="card__cancel-btn" text="취소"></custom-button>
+        <custom-button class="card__submit-btn" type="primary" text="등록"></custom-button>
+      </div>
+    </div>`;
+  }
+
+  getCreateCardTemplate() {
+    return `
+    <div class="card" tabindex="0">
+      <div class="card__header">
+        <input class="card__title" placeholder="제목을 입력하세요." />
+      </div>
+      <textarea class="card__desc" placeholder="내용을 입력해주세요."></textarea>
+      <div class="card__button__wrapper">
+        <custom-button class="card__cancel-btn" text="취소"></custom-button>
+        <custom-button class="card__submit-btn" type="primary" text="등록"></custom-button>
       </div>
     </div>`;
   }
