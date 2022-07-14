@@ -9,7 +9,10 @@ class NotificationService {
       .then((connection) => {
         connection
           .query(sql)
-          .then(([data]) => responseCallback(data))
+          .then(([data]) => {
+            connection.release();
+            responseCallback(data);
+          })
           .catch((err) => errorCallback(err));
       })
       .catch((err) => errorCallback(err));
@@ -23,7 +26,10 @@ class NotificationService {
       .then((connection) => {
         connection
           .query(sql)
-          .then(() => responseCallback())
+          .then(() => {
+            connection.release();
+            responseCallback();
+          })
           .catch((err) => errorCallback(err));
       })
       .catch((err) => errorCallback(err));

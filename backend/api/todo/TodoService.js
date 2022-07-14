@@ -13,6 +13,7 @@ class TodoService {
       connection
         .query(sql)
         .then(([response]) => {
+          connection.release();
           notificationService.createNotification(response.insertId, action, status, responseCallback, errorCallback);
         })
         .catch((err) => errorCallback(err)),
@@ -25,7 +26,10 @@ class TodoService {
     dbPool.getConnection().then((connection) => {
       connection
         .query(sql)
-        .then(([data]) => responseCallback(data))
+        .then(([data]) => {
+          connection.release();
+          responseCallback(data);
+        })
         .catch((err) => errorCallback(err));
     });
   }
@@ -50,6 +54,7 @@ class TodoService {
         connection
           .query(sql)
           .then(() => {
+            connection.release();
             notificationService.createNotification(todo_id, action, status, responseCallback, errorCallback);
           })
           .catch((err) => errorCallback(err));
@@ -65,6 +70,7 @@ class TodoService {
       connection
         .query(sql)
         .then(() => {
+          connection.release();
           notificationService.createNotification(todo_id, action, status, responseCallback, errorCallback);
         })
         .catch((err) => errorCallback(err));
