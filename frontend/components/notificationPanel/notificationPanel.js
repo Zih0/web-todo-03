@@ -1,5 +1,5 @@
 import Component from '../core/component.js';
-import NotificationPanelStyle from './NotificationPanel.css';
+import NotificationPanelStyle from './notificationPanel.css';
 import IconClose from '../../assets/icons/close.svg';
 import { enableBodyScroll } from '../../utils/styleUtil.js';
 const fakeData = [
