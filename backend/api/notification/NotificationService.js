@@ -2,7 +2,7 @@ import dbPool from '../../config/db.js';
 
 class NotificationService {
   getNotifications(responseCallback, errorCallback) {
-    const sql = 'SELECT * FROM notification, todo WHERE notification.todo_id=todo.todo_id';
+    const sql = 'SELECT * FROM notification, todo WHERE notification.todo_id=todo.todo_id ORDER BY cdate DESC';
 
     dbPool
       .getConnection()
