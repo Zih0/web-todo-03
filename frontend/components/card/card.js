@@ -2,7 +2,8 @@ import Component from '../core/component.js';
 import cardStyle from './card.css';
 import IconClose from '../../assets/icons/close.svg';
 import { openAlertModal } from '../../utils/modalUtil.js';
-import { createTodo, updateTodo } from '../../api/todo.js';
+import { createTodo, moveTodo, updateTodo } from '../../api/todo.js';
+import { TODO_STATUS } from '../../pages/mainPage/index.js';
 
 export const CARD_TYPE = {
   NORMAL: 'NORMAL',
@@ -14,7 +15,65 @@ class Card extends Component {
   constructor() {
     super();
 
+    this.kanvan__todo = document.querySelector('main-page').shadowRoot.querySelector('#main__kanvan__todo');
+    this.kanvan__progress = document.querySelector('main-page').shadowRoot.querySelector('#main__kanvan__progress');
+    this.kanvan__done = document.querySelector('main-page').shadowRoot.querySelector('#main__kanvan__done');
+
     if (this.getAttribute('card-type') === CARD_TYPE.CREATE) this.disableSubmitButton();
+  }
+
+  setDropzoneStyle(customElement) {
+    const kanvan = customElement.shadowRoot.querySelector('.kanvan');
+
+    kanvan.classList.add('dropzone');
+  }
+
+  removeDropzoneStyle(customElement) {
+    const kanvan = customElement.shadowRoot.querySelector('.kanvan');
+
+    kanvan.classList.remove('dropzone');
+  }
+
+  checkPosition(x, y) {
+    const {
+      left: todoLeft,
+      right: todoRight,
+      top: todoTop,
+      bottom: todoBottom,
+    } = this.kanvan__todo.getBoundingClientRect();
+    const {
+      left: progressLeft,
+      right: progressRight,
+      top: progressTop,
+      bottom: progressBottom,
+    } = this.kanvan__progress.getBoundingClientRect();
+    const {
+      left: doneLeft,
+      right: doneRight,
+      top: doneTop,
+      bottom: doneBottom,
+    } = this.kanvan__done.getBoundingClientRect();
+
+    if (x >= todoLeft && x <= todoRight && y >= todoTop && y <= todoBottom) {
+      this.setDropzoneStyle(this.kanvan__todo);
+      this.setAttribute('drop-status', TODO_STATUS.TODO);
+    } else {
+      this.removeDropzoneStyle(this.kanvan__todo);
+    }
+
+    if (x >= progressLeft && x <= progressRight && y >= progressTop && y <= progressBottom) {
+      this.setDropzoneStyle(this.kanvan__progress);
+      this.setAttribute('drop-status', TODO_STATUS.PROGRESS);
+    } else {
+      this.removeDropzoneStyle(this.kanvan__progress);
+    }
+
+    if (x >= doneLeft && x <= doneRight && y >= doneTop && y <= doneBottom) {
+      this.setDropzoneStyle(this.kanvan__done);
+      this.setAttribute('drop-status', TODO_STATUS.DONE);
+    } else {
+      this.removeDropzoneStyle(this.kanvan__done);
+    }
   }
 
   setStyle() {
@@ -29,12 +88,99 @@ class Card extends Component {
     }
   }
 
+  setDragging(element) {
+    element.setAttribute('dragging', '');
+    element.shadowRoot.querySelector('.card').classList.add('place');
+  }
+
+  deleteDragging(element) {
+    element.removeAttribute('dragging');
+    element.shadowRoot.querySelector('.card').classList.remove('place');
+  }
+
+  handlePickUpCard(e) {
+    if (this.getAttribute('card-type') !== CARD_TYPE.NORMAL) return;
+    if (e.target.closest('.card__close-btn')) return;
+    this.setAttribute('dragging', '');
+
+    setTimeout(() => {
+      if (!this.hasAttribute('dragging')) return;
+
+      this.setDragging(this);
+
+      const cloneCard = this.cloneNode(true);
+      cloneCard.classList.add('clone');
+      cloneCard.style.position = 'absolute';
+      cloneCard.style.zIndex = 1000;
+      cloneCard.style.left = e.x;
+      cloneCard.style.top = e.y;
+
+      cloneCard.shadowRoot.querySelector('.card').classList.add('dragging');
+
+      document.querySelector('main-page').shadowRoot.append(cloneCard);
+
+      const moveAt = (x, y) => {
+        this.checkPosition(x, y);
+
+        cloneCard.style.left = x - cloneCard.offsetHeight / 2 + 'px';
+
+        cloneCard.style.top = y - cloneCard.offsetHeight / 2 + 'px';
+      };
+
+      moveAt(e.pageX, e.pageY);
+
+      const handleMoveCard = (e) => {
+        moveAt(e.pageX, e.pageY);
+      };
+
+      cloneCard.addEventListener('mousemove', handleMoveCard);
+
+      const handlePutCard = () => {
+        cloneCard.removeEventListener('mousemove', handleMoveCard);
+
+        this.deleteDragging(this);
+
+        // 드래그 한 카드 삭제
+        document.querySelector('main-page').shadowRoot.removeChild(cloneCard);
+        this.moveCard();
+      };
+      cloneCard.addEventListener('mouseup', handlePutCard);
+    }, 300);
+  }
+
   removeCard() {
     this.remove();
   }
 
+  moveCard() {
+    const cardId = this.getAttribute('card-id');
+    const cardStatus = this.getAttribute('card-status');
+    const dropStatus = this.getAttribute('drop-status');
+
+    const kanvanBoard =
+      dropStatus === TODO_STATUS.TODO
+        ? this.kanvan__todo
+        : dropStatus === TODO_STATUS.PROGRESS
+        ? this.kanvan__progress
+        : this.kanvan__done;
+
+    if (cardStatus === dropStatus) {
+      this.removeDropzoneStyle(kanvanBoard);
+      return;
+    }
+
+    moveTodo(cardId, `${cardStatus},${dropStatus}`).then(() => {
+      this.setAttribute('card-status', TODO_STATUS[dropStatus]);
+      const cardList = kanvanBoard.shadowRoot.querySelector('.kanvan__card__list');
+      cardList.insertBefore(this, cardList.firstChild);
+    });
+    this.removeDropzoneStyle(kanvanBoard);
+  }
+
   handleDoubleClickCard(e) {
     if (this.getAttribute('card-type') !== CARD_TYPE.NORMAL) return;
+
+    this.removeAttribute('dragging');
 
     this.toggleCardType();
   }
@@ -62,6 +208,8 @@ class Card extends Component {
   }
 
   handleClickCancelButton(e) {
+    e.stopPropagation();
+
     if (this.getAttribute('card-type') === CARD_TYPE.MODIFY) this.toggleCardType();
     if (this.getAttribute('card-type') === CARD_TYPE.CREATE) this.removeCard();
   }
@@ -111,6 +259,7 @@ class Card extends Component {
   }
 
   setEvent() {
+    this.addEvent('pointerdown', '.card', this.handlePickUpCard.bind(this));
     this.addEvent('dblclick', '.card', this.handleDoubleClickCard.bind(this));
     this.addEvent('click', '.card__close-btn', this.handleClickCloseButton.bind(this));
     this.addEvent('click', '.card__cancel-btn', this.handleClickCancelButton.bind(this));

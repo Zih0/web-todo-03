@@ -9,4 +9,6 @@
   --grey-400: #828282;
   --grey-500: #646f7c;
   --black: #191f28;
+
+  box-sizing: border-box;
 }
