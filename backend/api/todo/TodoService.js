@@ -21,7 +21,7 @@ class TodoService {
   }
 
   getTodo(responseCallback, errorCallback) {
-    const sql = 'SELECT todo_id, status, title, description FROM todo WHERE is_delete=0';
+    const sql = 'SELECT todo_id, status, title, description FROM todo WHERE is_delete=0 ORDER BY todo_id DESC';
 
     dbPool.getConnection().then((connection) => {
       connection
