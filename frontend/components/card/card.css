@@ -49,6 +49,8 @@ input.card__title::placeholder {
   font-size: 16px;
   line-height: 19px;
 
+  white-space: pre-line;
+
   color: var(--grey-500);
 }
 
