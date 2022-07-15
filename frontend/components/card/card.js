@@ -140,16 +140,16 @@ class Card extends Component {
         moveAt(e.pageX, e.pageY);
       };
 
-      cloneCard.addEventListener('mousemove', handleMoveCard);
+      cloneCard.addEventListener('pointermove', handleMoveCard);
 
       const handlePutCard = () => {
-        cloneCard.removeEventListener('mousemove', handleMoveCard);
+        cloneCard.removeEventListener('pointermove', handleMoveCard);
 
         this.deleteDragging(this);
         document.querySelector('main-page').shadowRoot.removeChild(cloneCard);
         this.moveCard();
       };
-      cloneCard.addEventListener('mouseup', handlePutCard);
+      cloneCard.addEventListener('pointerup', handlePutCard);
     }, DRAG_DELAY_TIME);
   }
 
@@ -176,8 +176,14 @@ class Card extends Component {
 
     moveTodo(cardId, `${cardStatus},${dropStatus}`).then(() => {
       this.setAttribute('card-status', TODO_STATUS[dropStatus]);
-      const cardList = kanvanBoard.shadowRoot.querySelector('.kanvan__card__list');
-      cardList.insertBefore(this, cardList.firstChild);
+
+      const dataList = JSON.parse(document.querySelector('main-page').getAttribute('data-list'));
+      dataList.forEach((todoData) => {
+        if (todoData.todo_id === Number(cardId)) {
+          todoData.status = dropStatus;
+        }
+      });
+      document.querySelector('main-page').setAttribute('data-list', JSON.stringify(dataList));
     });
     this.removeDropzoneStyle(kanvanBoard);
   }
@@ -232,19 +238,32 @@ class Card extends Component {
 
     if (cardType === CARD_TYPE.CREATE) {
       createTodo(cardStatus, inputTitle.value, descriptionTextArea.value)
-        .then(() => {
-          this.setAttribute('title', inputTitle.value);
-          this.setAttribute('description', descriptionTextArea.value);
-          this.setAttribute('card-type', CARD_TYPE.NORMAL);
+        .then(({ todo_id }) => {
+          const dataList = JSON.parse(document.querySelector('main-page').getAttribute('data-list'));
+          const newDataList = [
+            {
+              todo_id,
+              status: cardStatus,
+              title: inputTitle.value,
+              description: descriptionTextArea.value,
+            },
+            ...dataList,
+          ];
+          document.querySelector('main-page').setAttribute('data-list', JSON.stringify(newDataList));
         })
         .catch((err) => console.log(err));
     } else if (cardType === CARD_TYPE.MODIFY) {
       const cardId = this.getAttribute('card-id');
 
       updateTodo(cardId, cardStatus, inputTitle.value, descriptionTextArea.value).then(() => {
-        this.setAttribute('title', inputTitle.value);
-        this.setAttribute('description', descriptionTextArea.value);
-        this.setAttribute('card-type', CARD_TYPE.NORMAL);
+        const dataList = JSON.parse(document.querySelector('main-page').getAttribute('data-list'));
+        dataList.forEach((todoData) => {
+          if (todoData.todo_id === Number(cardId)) {
+            todoData.title = inputTitle.value;
+            todoData.description = descriptionTextArea.value;
+          }
+        });
+        document.querySelector('main-page').setAttribute('data-list', JSON.stringify(dataList));
       });
     }
   }

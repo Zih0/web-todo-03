@@ -2,7 +2,7 @@
 
 .card {
   padding: 16px;
-  min-width: 308px;
+  width: 308px;
   min-height: 128px;
 
   background: var(--white);

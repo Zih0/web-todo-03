@@ -3,7 +3,7 @@ import fetcher from '../utils/fetcher.js';
 const getTodoList = () => fetcher.get('/todos').then((response) => response.payload);
 
 const createTodo = (status, title, description) =>
-  fetcher.post('/todos', { status, title, description }).then((response) => response);
+  fetcher.post('/todos', { status, title, description }).then((response) => response.payload);
 
 const moveTodo = (id, status) => fetcher.put(`/todos/${id}`, { status }).then((response) => response);
 

@@ -9,8 +9,9 @@ const createTodo = (req, res) => {
     status,
     title,
     description,
-    () =>
+    (todo_id) =>
       res.status(201).send({
+        payload: { todo_id },
         message: '성공적으로 투두가 생성되었습니다.',
       }),
     (err) => res.status(500).send({ error: err }),

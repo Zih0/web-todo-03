@@ -28,7 +28,7 @@ class NotificationService {
           .query(sql)
           .then(() => {
             connection.release();
-            responseCallback();
+            responseCallback(todo_id);
           })
           .catch((err) => errorCallback(err));
       })

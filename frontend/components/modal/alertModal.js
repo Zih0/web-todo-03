@@ -1,7 +1,7 @@
 import { deleteTodo } from '../../api/todo.js';
 import Component from '../core/component.js';
 import alertModalStyle from './alertModal.css';
-import { enableBodyScroll } from '../../utils/styleUtil.js';
+import { disableBodyScroll, enableBodyScroll } from '../../utils/styleUtil.js';
 
 class AlertModal extends Component {
   constructor() {
@@ -10,6 +10,7 @@ class AlertModal extends Component {
 
   open() {
     this.shadowRoot.querySelector('.modal').classList.add('open');
+    disableBodyScroll();
   }
 
   close() {
@@ -32,12 +33,14 @@ class AlertModal extends Component {
     const cardId = this.getAttribute('card-id');
     const cardStatus = this.getAttribute('card-status');
 
-    const dataList = JSON.parse(document.querySelector('main-page').getAttribute('data-list'));
-    const newDataList = dataList.filter((data) => data.todo_id !== Number(cardId));
-    document.querySelector('main-page').setAttribute('data-list', JSON.stringify(newDataList));
-
     deleteTodo(cardId, cardStatus)
-      .then(() => this.close())
+      .then(() => {
+        const dataList = JSON.parse(document.querySelector('main-page').getAttribute('data-list'));
+        const newDataList = dataList.filter((data) => data.todo_id !== Number(cardId));
+        document.querySelector('main-page').setAttribute('data-list', JSON.stringify(newDataList));
+
+        this.close();
+      })
       .catch((err) => console.log(err));
   }
 
