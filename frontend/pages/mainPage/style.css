@@ -43,5 +43,6 @@
 .kanvan__container {
   margin-top: 20px;
   display: flex;
+  justify-content: center;
   gap: 48px;
 }
