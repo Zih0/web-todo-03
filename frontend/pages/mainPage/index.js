@@ -42,20 +42,22 @@ export default class MainPage extends Component {
         <div class="main__container">
           <todo-header text="${todoTitle}"></todo-header>
           <div class="contents__container">
-            <div class="project-header">
-              <h1>${projectTitle}</h1>
-              <p>${projectDesc}</p>
-            </div>
-            <div class="kanvan__container">
-              <todo-kanvan id="main__kanvan__todo" title="todo" data-list='${
-                JSON.stringify(this.todos) ?? []
-              }'></todo-kanvan>
-              <todo-kanvan id="main__kanvan__progress" title="progress" data-list='${
-                JSON.stringify(this.progresses) ?? []
-              }'></todo-kanvan>
-              <todo-kanvan id="main__kanvan__done" title="done" data-list='${
-                JSON.stringify(this.dones) ?? []
-              }'></todo-kanvan>
+            <div class="wrapper">
+              <div class="project-header">
+                <h1>${projectTitle}</h1>
+                <p>${projectDesc}</p>
+              </div>
+              <div class="kanvan__container">
+                <todo-kanvan id="main__kanvan__todo" title="todo" data-list='${
+                  JSON.stringify(this.todos) ?? []
+                }'></todo-kanvan>
+                <todo-kanvan id="main__kanvan__progress" title="progress" data-list='${
+                  JSON.stringify(this.progresses) ?? []
+                }'></todo-kanvan>
+                <todo-kanvan id="main__kanvan__done" title="done" data-list='${
+                  JSON.stringify(this.dones) ?? []
+                }'></todo-kanvan>
+              </div>
             </div>
           </div>
         </div>

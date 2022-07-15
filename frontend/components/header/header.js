@@ -26,9 +26,11 @@ class Header extends Component {
 
     return `
         <header>
-          <h1>${text}</h1>
-          <div class="panel-button">
-            <img src=${IconBell} alt='열기'/>
+          <div class="wrapper">
+            <h1>${text}</h1>
+            <div class="panel-button">
+              <img src=${IconBell} alt='열기'/>
+            </div>
           </div>
         </header>`;
   }

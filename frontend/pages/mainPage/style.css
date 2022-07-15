@@ -2,11 +2,21 @@
 @import '../../styles/style.css';
 
 .main__container {
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
-.contents__container {
+
+.wrapper {
   margin-top: 28px;
+
+  width: 100%;
+  max-width: 1240px;
+  display: flex;
+  flex-direction: column;
+}
+
+.contents__container {
   margin-bottom: 100px;
   padding: 0 60px;
   display: flex;
@@ -31,6 +41,7 @@
   color: var(--grey-500);
 }
 .kanvan__container {
+  margin-top: 20px;
   display: flex;
   gap: 48px;
 }
